@@ -1,0 +1,95 @@
+.triangle-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.inputs-section, .visual-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+input {
+  padding: 8px;
+  margin: 5px 0 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.error-msg {
+  color: red;
+  font-weight: bold;
+}
+
+
+.success-msg {
+  color: green;
+  font-weight: bold;
+}
+
+.triangle-svg {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
+  transition: all 0.5s ease-in-out;
+}
+
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.fade-in-left {
+  animation-name: fadeInLeft;
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+
+.fade-in-right {
+  animation-name: fadeInRight;
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+
+
+@media (max-width: 768px) {
+  .triangle-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.triangle-animate {
+  animation: triangleFadeIn 1s ease-out forwards;
+  transform-origin: center;
+  opacity: 0;
+}
+
+@keyframes triangleFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
