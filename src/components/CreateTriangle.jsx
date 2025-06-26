@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import "./TriangleStyles.css"
+import "./TriangleStyles.css";
 
 export const CreateTriangle = () => {
   const [AB, setAB] = useState("");
@@ -47,30 +47,34 @@ export const CreateTriangle = () => {
         <h2>🔺 Identify Triangle</h2>
 
         <h3>Step 1: Enter Side Lengths (cm)</h3>
-        {[{ label: "AB", value: AB, setter: setAB }, { label: "BC", value: BC, setter: setBC }, { label: "CA", value: CA, setter: setCA }].map(({ label, value, setter }) => (
-          <div key={label}>
-            <label>{label}: </label>
-            <input
-              type="number"
-              value={value}
-              onChange={(e) => setter(Number(e.target.value))}
-              placeholder="e.g. 5"
-            />
-          </div>
-        ))}
+        <div className="input-row">
+          {[{ label: "AB", value: AB, setter: setAB }, { label: "BC", value: BC, setter: setBC }, { label: "CA", value: CA, setter: setCA }].map(({ label, value, setter }) => (
+            <div key={label} className="input-group">
+              <label>{label}</label>
+              <input
+                type="number"
+                value={value}
+                onChange={(e) => setter(Number(e.target.value))}
+                placeholder="e.g. 5"
+              />
+            </div>
+          ))}
+        </div>
 
         <h3>Step 2: Enter Angles (degrees)</h3>
-        {[{ label: "∠A", value: angleA, setter: setAngleA }, { label: "∠B", value: angleB, setter: setAngleB }, { label: "∠C", value: angleC, setter: setAngleC }].map(({ label, value, setter }) => (
-          <div key={label}>
-            <label>{label}: </label>
-            <input
-              type="number"
-              value={value}
-              onChange={(e) => setter(Number(e.target.value))}
-              placeholder="e.g. 60"
-            />
-          </div>
-        ))}
+        <div className="input-row">
+          {[{ label: "∠A", value: angleA, setter: setAngleA }, { label: "∠B", value: angleB, setter: setAngleB }, { label: "∠C", value: angleC, setter: setAngleC }].map(({ label, value, setter }) => (
+            <div key={label} className="input-group">
+              <label>{label}</label>
+              <input
+                type="number"
+                value={value}
+                onChange={(e) => setter(Number(e.target.value))}
+                placeholder="e.g. 60"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="visual-section fade-in-right">
@@ -86,46 +90,33 @@ export const CreateTriangle = () => {
         )}
 
         <h3>Current Inputs:</h3>
-        <table className="summary-table">
+        <table className="summary-table colorful-table">
           <thead>
             <tr>
-              <th>Side</th>
-              <th>Length (cm)</th>
+              <th>Label</th>
+              <th>Side (cm)</th>
+              <th>Angle (°)</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>AB</td><td>{AB || "-"}</td></tr>
-            <tr><td>BC</td><td>{BC || "-"}</td></tr>
-            <tr><td>CA</td><td>{CA || "-"}</td></tr>
-          </tbody>
-
-          <thead>
-            <tr>
-              <th>Angle</th>
-              <th>Degrees (°)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>∠A</td><td>{angleA || "-"}</td></tr>
-            <tr><td>∠B</td><td>{angleB || "-"}</td></tr>
-            <tr><td>∠C</td><td>{angleC || "-"}</td></tr>
+            <tr><td>A</td><td>{AB || "-"}</td><td>{angleA || "-"}</td></tr>
+            <tr><td>B</td><td>{BC || "-"}</td><td>{angleB || "-"}</td></tr>
+            <tr><td>C</td><td>{CA || "-"}</td><td>{angleC || "-"}</td></tr>
           </tbody>
         </table>
 
         {isAllSidesPresent && isAllAnglesPresent && validSideTriangle && validAngleTriangle && (
-          <svg width="500" height="300" viewBox="0 0 300 300" className="triangle-svg">
+          <svg width="500" height="300" viewBox="0 0 300 300" className="triangle-svg triangle-animate">
             {(() => {
               const a = Number(AB);
               const b = Number(BC);
               const c = Number(CA);
-
               const maxCanvasSize = 200;
               const maxSide = Math.max(a, b, c);
               const scale = maxCanvasSize / maxSide;
 
               const A = { x: 50, y: 250 };
               const B = { x: A.x + a * scale, y: 250 };
-
               const cosC = (a ** 2 + c ** 2 - b ** 2) / (2 * a * c);
               const angleCInRad = Math.acos(cosC);
 
@@ -138,8 +129,8 @@ export const CreateTriangle = () => {
                 <>
                   <polygon
                     points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
-                    fill="#f0f8ff"
-                    stroke="black"
+                    fill="#e3f2fd"
+                    stroke="#1565c0"
                     strokeWidth="2"
                   />
                   <text x={A.x - 10} y={A.y + 15}>A</text>
